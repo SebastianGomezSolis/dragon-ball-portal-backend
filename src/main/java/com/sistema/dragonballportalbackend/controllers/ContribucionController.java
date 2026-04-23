@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/contribuciones")
 @CrossOrigin
 public class ContribucionController {
-
     @Autowired
     private ContribucionService contribucionService;
 

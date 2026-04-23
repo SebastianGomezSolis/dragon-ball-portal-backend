@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
-
     private final Usuario usuario;
 
     public CustomUserDetails(Usuario usuario) {

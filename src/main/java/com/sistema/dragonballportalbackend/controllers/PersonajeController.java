@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/personajes")
 @CrossOrigin
 public class PersonajeController {
-
     @Autowired
     private PersonajeService personajeService;
 

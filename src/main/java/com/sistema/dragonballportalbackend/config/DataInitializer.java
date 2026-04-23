@@ -19,21 +19,19 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        // Verifica si ya existe un admin
+        // Verificamos si ya existe un admin
         if (!usuarioRepository.existsByUsername("admin")) {
-
             Usuario admin = new Usuario();
             admin.setUsername("admin");
-            admin.setPassword("1234"); // ⚠️ IMPORTANTE: en texto plano aquí
+            admin.setPassword("1234");
             admin.setRol(Rol.ADMIN);
 
-            // Usa el service para que haga el hash correctamente
+            // Usamos el service para que haga el hash correctamente
             usuarioService.registrar(admin);
 
-            System.out.println("✔ Admin creado automáticamente");
+            System.out.println("Admin creado automáticamente");
         } else {
-            System.out.println("✔ Admin ya existe");
+            System.out.println("Admin ya existe");
         }
     }
 }

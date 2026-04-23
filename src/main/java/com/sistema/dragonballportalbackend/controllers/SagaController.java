@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/sagas")
 @CrossOrigin
 public class SagaController {
-
     @Autowired
     private SagaService sagaService;
 

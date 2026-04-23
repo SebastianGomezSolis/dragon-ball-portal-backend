@@ -11,7 +11,6 @@ import java.util.List;
 
 @Service
 public class UsuarioService {
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -42,12 +41,10 @@ public class UsuarioService {
             return "El username ya existe";
         }
 
-        if (usuario.getRol() == null) {
-            usuario.setRol(Rol.USER);
-        }
-
+        usuario.setRol(Rol.USER);
         usuario.setPassword(passwordHash.hash(usuario.getPassword()));
         usuario.setActivo(true);
+
         usuarioRepository.save(usuario);
         return null;
     }

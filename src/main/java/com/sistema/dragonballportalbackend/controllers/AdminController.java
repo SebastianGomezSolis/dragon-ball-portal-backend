@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/admin")
 @CrossOrigin
 public class AdminController {
-
     @Autowired
     private ContribucionService contribucionService;
 
