@@ -1,7 +1,7 @@
 package com.sistema.dragonballportalbackend.controllers;
 
 import com.sistema.dragonballportalbackend.dto.DecisionRequest;
-import com.sistema.dragonballportalbackend.logic.servicios.ContribucionService;
+import com.sistema.dragonballportalbackend.logic.ModeloDatos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class AdminController {
     @Autowired
-    private ContribucionService contribucionService;
+    private ModeloDatos modeloDatos;
 
     @GetMapping("/pendientes")
     public ResponseEntity<?> pendientes() {
-        return ResponseEntity.ok(contribucionService.findPendientes());
+        return ResponseEntity.ok(modeloDatos.getContribucionService().findPendientes());
     }
 
     @PostMapping("/contribuciones/{id}/aprobar")
     public ResponseEntity<?> aprobar(@PathVariable Integer id,
                                      @RequestBody DecisionRequest request) {
-        String error = contribucionService.aprobar(id, request.getObservacionAdmin());
+        String error = modeloDatos.getContribucionService().aprobar(id, request.getObservacionAdmin());
         if (error != null) return ResponseEntity.badRequest().body(error);
         return ResponseEntity.ok("Contribución aprobada");
     }
@@ -29,7 +29,7 @@ public class AdminController {
     @PostMapping("/contribuciones/{id}/rechazar")
     public ResponseEntity<?> rechazar(@PathVariable Integer id,
                                       @RequestBody DecisionRequest request) {
-        String error = contribucionService.rechazar(id, request.getObservacionAdmin());
+        String error = modeloDatos.getContribucionService().rechazar(id, request.getObservacionAdmin());
         if (error != null) return ResponseEntity.badRequest().body(error);
         return ResponseEntity.ok("Contribución rechazada");
     }

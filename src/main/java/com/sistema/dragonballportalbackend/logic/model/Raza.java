@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Raza {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

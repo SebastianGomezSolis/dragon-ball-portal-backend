@@ -1,6 +1,6 @@
 package com.sistema.dragonballportalbackend.controllers;
 
-import com.sistema.dragonballportalbackend.logic.servicios.PersonajeService;
+import com.sistema.dragonballportalbackend.logic.ModeloDatos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class PersonajeController {
     @Autowired
-    private PersonajeService personajeService;
+    private ModeloDatos modeloDatos;
 
     @GetMapping
     public ResponseEntity<?> listar(@RequestParam(required = false) String nombre) {
-        return ResponseEntity.ok(personajeService.buscarPorNombre(nombre));
+        return ResponseEntity.ok(modeloDatos.getPersonajeService().buscarPorNombre(nombre));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> detalle(@PathVariable Integer id) {
-        return ResponseEntity.ok(personajeService.findById(id));
+        return ResponseEntity.ok(modeloDatos.getPersonajeService().findById(id));
     }
 }

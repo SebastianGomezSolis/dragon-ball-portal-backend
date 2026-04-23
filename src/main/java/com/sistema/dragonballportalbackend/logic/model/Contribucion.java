@@ -11,7 +11,6 @@ import java.time.Instant;
 @Getter
 @Setter
 public class Contribucion {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
