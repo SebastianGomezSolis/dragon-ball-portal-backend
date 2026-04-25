@@ -13,14 +13,22 @@ public class AuthService {
     @Autowired private SesionUsuarioBean sesionUsuarioBean;
 
     public String login(AuthRequest request) {
-        if (request.getUsername() == null || request.getPassword() == null)
+        if (request.getUsername() == null || request.getPassword() == null) {
             return "Credenciales inválidas";
+        }
 
         Usuario usuario = usuarioService.findByUsername(request.getUsername());
-        if (usuario == null) return "Credenciales inválidas";
-        if (!Boolean.TRUE.equals(usuario.getActivo())) return "Usuario inactivo";
-        if (!passwordHash.verify(request.getPassword(), usuario.getPassword()))
+        if (usuario == null) {
             return "Credenciales inválidas";
+        }
+
+        if (!Boolean.TRUE.equals(usuario.getActivo())) {
+            return "Usuario inactivo";
+        }
+
+        if (!passwordHash.verify(request.getPassword(), usuario.getPassword())) {
+            return "Credenciales inválidas";
+        }
 
         sesionUsuarioBean.login(usuario.getId(), usuario.getUsername(), usuario.getRol(), true);
         return null;

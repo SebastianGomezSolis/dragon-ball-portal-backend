@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataInitializer implements CommandLineRunner {
     @Autowired private UsuarioRepository usuarioRepository;
+
     @Autowired private UsuarioService usuarioService;
 
     @Override

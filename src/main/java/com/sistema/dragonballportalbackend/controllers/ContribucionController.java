@@ -18,8 +18,9 @@ public class ContribucionController {
 
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody ContribucionRequest request) {
-        if (!sesionUsuarioBean.isLogueado())
+        if (!sesionUsuarioBean.isLogueado()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No autenticado");
+        }
 
         Contribucion c = new Contribucion();
         c.setTipo(request.getTipo());
@@ -31,14 +32,18 @@ public class ContribucionController {
         c.setUsuario(usuario);
 
         String error = modeloDatos.getContribucionService().crearContribucion(c);
-        if (error != null) return ResponseEntity.badRequest().body(error);
+
+        if (error != null) {
+            return ResponseEntity.badRequest().body(error);
+        }
         return ResponseEntity.ok("Contribución enviada para revisión");
     }
 
     @GetMapping("/mias")
     public ResponseEntity<?> mias() {
-        if (!sesionUsuarioBean.isLogueado())
+        if (!sesionUsuarioBean.isLogueado()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No autenticado");
+        }
         return ResponseEntity.ok(modeloDatos.getContribucionService().findByUsuarioId(sesionUsuarioBean.getId()));
     }
 }

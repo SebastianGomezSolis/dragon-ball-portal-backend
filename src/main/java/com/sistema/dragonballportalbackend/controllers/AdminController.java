@@ -16,26 +16,36 @@ public class AdminController {
 
     @GetMapping("/pendientes")
     public ResponseEntity<?> pendientes() {
-        if (!sesionUsuarioBean.isAdmin())
+        if (!sesionUsuarioBean.isAdmin()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso denegado");
+        }
         return ResponseEntity.ok(modeloDatos.getContribucionService().findPendientes());
     }
 
     @PostMapping("/contribuciones/{id}/aprobar")
     public ResponseEntity<?> aprobar(@PathVariable Integer id, @RequestBody DecisionRequest request) {
-        if (!sesionUsuarioBean.isAdmin())
+        if (!sesionUsuarioBean.isAdmin()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso denegado");
+        }
+
         String error = modeloDatos.getContribucionService().aprobar(id, request.getObservacionAdmin());
-        if (error != null) return ResponseEntity.badRequest().body(error);
+
+        if (error != null) {
+            return ResponseEntity.badRequest().body(error);
+        }
         return ResponseEntity.ok("Contribución aprobada");
     }
 
     @PostMapping("/contribuciones/{id}/rechazar")
     public ResponseEntity<?> rechazar(@PathVariable Integer id, @RequestBody DecisionRequest request) {
-        if (!sesionUsuarioBean.isAdmin())
+        if (!sesionUsuarioBean.isAdmin()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acceso denegado");
+        }
         String error = modeloDatos.getContribucionService().rechazar(id, request.getObservacionAdmin());
-        if (error != null) return ResponseEntity.badRequest().body(error);
+
+        if (error != null) {
+            return ResponseEntity.badRequest().body(error);
+        }
         return ResponseEntity.ok("Contribución rechazada");
     }
 }

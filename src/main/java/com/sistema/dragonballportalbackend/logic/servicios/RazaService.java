@@ -28,14 +28,24 @@ public class RazaService {
     }
 
     public List<Raza> buscarPorNombre(String nombre) {
-        if (nombre == null || nombre.isBlank()) return findAllPublicadas();
+        if (nombre == null || nombre.isBlank()) {
+            return findAllPublicadas();
+        }
         return razaRepository.findByNombreContainingIgnoreCaseAndPublicadoTrueOrderByNombreAsc(nombre);
     }
 
     public String guardar(Raza raza) {
-        if (raza == null) return "La raza es nula";
-        if (raza.getNombre() == null || raza.getNombre().isBlank()) return "El nombre es requerido";
-        if (raza.getPublicado() == null) raza.setPublicado(false);
+        if (raza == null) {
+            return "La raza es nula";
+        }
+
+        if (raza.getNombre() == null || raza.getNombre().isBlank()) {
+            return "El nombre es requerido";
+        }
+
+        if (raza.getPublicado() == null) {
+            raza.setPublicado(false);
+        }
         razaRepository.save(raza);
         return null;
     }

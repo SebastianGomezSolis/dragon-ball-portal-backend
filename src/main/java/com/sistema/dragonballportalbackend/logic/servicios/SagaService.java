@@ -28,14 +28,24 @@ public class SagaService {
     }
 
     public List<Saga> buscarPorNombre(String nombre) {
-        if (nombre == null || nombre.isBlank()) return findAllPublicadas();
+        if (nombre == null || nombre.isBlank()) {
+            return findAllPublicadas();
+        }
         return sagaRepository.findByNombreContainingIgnoreCaseAndPublicadoTrueOrderByNombreAsc(nombre);
     }
 
     public String guardar(Saga saga) {
-        if (saga == null) return "La saga es nula";
-        if (saga.getNombre() == null || saga.getNombre().isBlank()) return "El nombre es requerido";
-        if (saga.getPublicado() == null) saga.setPublicado(false);
+        if (saga == null) {
+            return "La saga es nula";
+        }
+
+        if (saga.getNombre() == null || saga.getNombre().isBlank()) {
+            return "El nombre es requerido";
+        }
+
+        if (saga.getPublicado() == null) {
+            saga.setPublicado(false);
+        }
         sagaRepository.save(saga);
         return null;
     }

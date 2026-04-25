@@ -28,14 +28,24 @@ public class PersonajeService {
     }
 
     public List<Personaje> buscarPorNombre(String nombre) {
-        if (nombre == null || nombre.isBlank()) return findAllPublicados();
+        if (nombre == null || nombre.isBlank()) {
+            return findAllPublicados();
+        }
         return personajeRepository.findByNombreContainingIgnoreCaseAndPublicadoTrueOrderByNombreAsc(nombre);
     }
 
     public String guardar(Personaje personaje) {
-        if (personaje == null) return "El personaje es nulo";
-        if (personaje.getNombre() == null || personaje.getNombre().isBlank()) return "El nombre es requerido";
-        if (personaje.getPublicado() == null) personaje.setPublicado(false);
+        if (personaje == null) {
+            return "El personaje es nulo";
+        }
+
+        if (personaje.getNombre() == null || personaje.getNombre().isBlank()) {
+            return "El nombre es requerido";
+        }
+
+        if (personaje.getPublicado() == null) {
+            personaje.setPublicado(false);
+        }
         personajeRepository.save(personaje);
         return null;
     }

@@ -28,14 +28,24 @@ public class UsuarioService {
     }
 
     public Usuario findByUsername(String username) {
-        if (username == null || username.isBlank()) return null;
+        if (username == null || username.isBlank()) {
+            return null;
+        }
         return usuarioRepository.findByUsername(username).orElse(null);
     }
 
     public String registrar(Usuario usuario) {
-        if (usuario == null) return "El usuario es nulo";
-        if (usuario.getUsername() == null || usuario.getUsername().isBlank()) return "El username es requerido";
-        if (usuario.getPassword() == null || usuario.getPassword().isBlank()) return "La contraseña es requerida";
+        if (usuario == null) {
+            return "El usuario es nulo";
+        }
+
+        if (usuario.getUsername() == null || usuario.getUsername().isBlank()) {
+            return "El username es requerido";
+        }
+
+        if (usuario.getPassword() == null || usuario.getPassword().isBlank()) {
+            return "La contraseña es requerida";
+        }
 
         if (usuarioRepository.existsByUsername(usuario.getUsername())) {
             return "El username ya existe";
@@ -55,11 +65,18 @@ public class UsuarioService {
     }
 
     public String actualizar(Usuario usuario) {
-        if (usuario == null) return "El usuario es nulo";
-        if (usuario.getId() == null) return "El id es requerido";
+        if (usuario == null) {
+            return "El usuario es nulo";
+        }
+
+        if (usuario.getId() == null) {
+            return "El id es requerido";
+        }
 
         Usuario existente = findById(usuario.getId());
-        if (existente == null) return "El usuario no existe";
+        if (existente == null) {
+            return "El usuario no existe";
+        }
 
         if (usuario.getPassword() != null && !usuario.getPassword().isBlank()) {
             usuario.setPassword(passwordHash.hash(usuario.getPassword()));

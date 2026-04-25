@@ -45,14 +45,30 @@ public class ContribucionService {
     }
 
     public String crearContribucion(Contribucion contribucion) {
-        if (contribucion == null) return "La contribución es nula";
-        if (contribucion.getTitulo() == null || contribucion.getTitulo().isBlank()) return "El título es requerido";
-        if (contribucion.getTipo() == null || contribucion.getTipo().isBlank()) return "El tipo es requerido";
-        if (contribucion.getContenidoHtml() == null || contribucion.getContenidoHtml().isBlank()) return "El contenido es requerido";
-        if (contribucion.getUsuario() == null || contribucion.getUsuario().getId() == null) return "El usuario es requerido";
+        if (contribucion == null) {
+            return "La contribución es nula";
+        }
+
+        if (contribucion.getTitulo() == null || contribucion.getTitulo().isBlank()) {
+            return "El título es requerido";
+        }
+
+        if (contribucion.getTipo() == null || contribucion.getTipo().isBlank()) {
+            return "El tipo es requerido";
+        }
+
+        if (contribucion.getContenidoHtml() == null || contribucion.getContenidoHtml().isBlank()) {
+            return "El contenido es requerido";
+        }
+
+        if (contribucion.getUsuario() == null || contribucion.getUsuario().getId() == null) {
+            return "El usuario es requerido";
+        }
 
         Usuario usuario = usuarioService.findById(contribucion.getUsuario().getId());
-        if (usuario == null) return "El usuario no existe";
+        if (usuario == null) {
+            return "El usuario no existe";
+        }
 
         contribucion.setUsuario(usuario);
         contribucion.setEstado(EstadoContribucion.PENDIENTE);
@@ -64,8 +80,12 @@ public class ContribucionService {
     public String aprobar(Integer id, String observacionAdmin) {
         Contribucion contribucion = findById(id);
 
-        if (contribucion == null) return "La contribución no existe";
-        if (contribucion.getEstado() != EstadoContribucion.PENDIENTE) return "La contribución ya fue procesada";
+        if (contribucion == null) {
+            return "La contribución no existe";
+        }
+        if (contribucion.getEstado() != EstadoContribucion.PENDIENTE) {
+            return "La contribución ya fue procesada";
+        }
 
         switch (contribucion.getTipo().toUpperCase()) {
             case "PERSONAJE" -> aprobarComoPersonaje(contribucion);
@@ -83,8 +103,13 @@ public class ContribucionService {
     public String rechazar(Integer id, String observacionAdmin) {
         Contribucion contribucion = findById(id);
 
-        if (contribucion == null) return "La contribución no existe";
-        if (contribucion.getEstado() != EstadoContribucion.PENDIENTE) return "La contribución ya fue procesada";
+        if (contribucion == null) {
+            return "La contribución no existe";
+        }
+
+        if (contribucion.getEstado() != EstadoContribucion.PENDIENTE) {
+            return "La contribución ya fue procesada";
+        }
 
         contribucion.setEstado(EstadoContribucion.RECHAZADA);
         contribucion.setObservacionAdmin(observacionAdmin);

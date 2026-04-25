@@ -11,10 +11,10 @@ CREATE TABLE usuario (
 
 CREATE TABLE contribucion (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    tipo VARCHAR(20) NOT NULL, -- PERSONAJE, SAGA, RAZA
+    tipo VARCHAR(20) NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     contenido_html TEXT NOT NULL,
-    estado VARCHAR(20) NOT NULL, -- PENDIENTE, APROBADA, RECHAZADA
+    estado VARCHAR(20) NOT NULL,
     fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     observacion_admin TEXT,
     usuario_id INT NOT NULL,
