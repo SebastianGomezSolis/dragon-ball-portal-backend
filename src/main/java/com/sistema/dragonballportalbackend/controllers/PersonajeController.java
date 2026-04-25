@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/personajes")
-@CrossOrigin
 public class PersonajeController {
     @Autowired
     private ModeloDatos modeloDatos;

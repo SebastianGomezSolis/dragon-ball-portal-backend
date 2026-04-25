@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/razas")
-@CrossOrigin
 public class RazaController {
     @Autowired
     private ModeloDatos modeloDatos;

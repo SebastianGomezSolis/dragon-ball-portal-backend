@@ -49,6 +49,11 @@ public class UsuarioService {
         return null;
     }
 
+    public void guardar(Usuario usuario) {
+        usuario.setPassword(passwordHash.hash(usuario.getPassword()));
+        usuarioRepository.save(usuario);
+    }
+
     public String actualizar(Usuario usuario) {
         if (usuario == null) return "El usuario es nulo";
         if (usuario.getId() == null) return "El id es requerido";

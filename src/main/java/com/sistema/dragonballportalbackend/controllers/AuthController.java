@@ -2,6 +2,7 @@ package com.sistema.dragonballportalbackend.controllers;
 
 import com.sistema.dragonballportalbackend.dto.AuthRequest;
 import com.sistema.dragonballportalbackend.logic.ModeloDatos;
+import com.sistema.dragonballportalbackend.logic.model.SesionUsuarioBean;
 import com.sistema.dragonballportalbackend.logic.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,18 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin
 public class AuthController {
-    @Autowired
-    private ModeloDatos modeloDatos;
+    @Autowired private ModeloDatos modeloDatos;
+    @Autowired private SesionUsuarioBean sesionUsuarioBean;
+
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
-        try {
-            return ResponseEntity.ok(modeloDatos.getAuthService().login(request));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
-        }
+        String error = modeloDatos.getAuthService().login(request);
+        if (error != null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+        return ResponseEntity.ok(sesionUsuarioBean);
     }
 
     @PostMapping("/register")
